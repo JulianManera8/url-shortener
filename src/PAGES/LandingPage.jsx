@@ -42,7 +42,7 @@ export default function LandingPage() {
           className="w-full my-11 md:px-11"
         />
 
-        <Accordion type="multiple" collapsible className=" w-full text-left">
+        <Accordion type="multiple" className=" w-full text-left">
 
           <AccordionItem value="item-1">
             <AccordionTrigger>Is it accessible?</AccordionTrigger>
