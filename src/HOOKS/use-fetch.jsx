@@ -23,5 +23,5 @@ export default function useFetch(cb, options = {}) {
         }
     }
 
-    return (data, loading, error, fn)
+    return { data, loading, error, fn };
 }
