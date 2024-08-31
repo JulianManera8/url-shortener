@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Error from './error';
 import useFetch from "@/HOOKS/use-fetch";
 import { login } from "@/DATABASE/apiAuth";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Login() {
     const [userData, setUserData] = useState({
@@ -15,6 +16,10 @@ export default function Login() {
     });
 
     const [errors, setErrors] = useState({});
+
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    const longLink = searchParams.get('createNew')
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -27,12 +32,12 @@ export default function Login() {
     const { data, error, loading, fn: fnLogin } = useFetch(login, userData);
 
     useEffect(() => {
-        if (data) {
-            console.log('Login successful:', data);
+        if (error === null && data) {
+          navigate(`/dashboard?${longLink ? 'createNew=${longLink}' : ''}`);
         }
-        if (error) {
-            console.error('Login error:', error);
-        }
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, error]);
 
     const handleLogin = async (e) => {
