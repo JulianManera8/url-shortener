@@ -4,8 +4,10 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
 import * as Yup from 'yup'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Error from './error'
+import useFetch from "@/HOOKS/use-fetch";
+import { login } from "@/DATABASE/apiAuth";
 // import { login } from '../DATABASE/apiAuth'
 
 
@@ -30,31 +32,40 @@ export default function Login() {
         }))
     }
 
+    const {data, error, loading, fn: fnLogin} = useFetch( login, userData )
+
+    useEffect(() => {
+      console.log(data);
+
+    }, [data, error])
+
     const handleLogin = async (e) => {
-        e.preventDefault();
-        setErrors([]); 
-    
-        try {
-            const schema = Yup.object().shape({
-                email: Yup.string()
-                    .email("Invalid email")
-                    .required("Email is required"),
-                password: Yup.string()
-                    .min(6, 'Password must be at least 6 characters long')
-                    .required('Password is required')
-            });
-    
-            await schema.validate(userData, { abortEarly: false });
-            // Aquí iría la lógica de login, por ejemplo, enviar la data al servidor
-        } catch (e) {
-            const newErrors = {};
-    
-            e?.inner?.forEach((err) => {
-                newErrors[err.path] = err.message;
-            });
-    
-            setErrors(newErrors);
-        }
+      e.preventDefault();
+      setErrors([]);
+
+      try {
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .email("Invalid email")
+            .required("Email is required"),
+          password: Yup.string()
+            .min(6, "Password must be at least 6 characters long")
+            .required("Password is required"),
+        });
+
+        await schema.validate(userData, { abortEarly: false });
+
+        await fnLogin()
+
+      } catch (e) {
+        const newErrors = {};
+
+        e?.inner?.forEach((err) => {
+          newErrors[err.path] = err.message;
+        });
+
+        setErrors(newErrors);
+      }
     };
 
   return (
@@ -63,7 +74,9 @@ export default function Login() {
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardDescription>
-            to your account if you already have one.
+            <span> to your account if you already have one. </span> 
+            {error && <Error errorMessage={error.message}/> }
+
           </CardDescription>
         </CardHeader>
         
@@ -84,7 +97,7 @@ export default function Login() {
 
         <CardFooter>
           <Button onClick={handleLogin}>
-            {true ? <BeatLoader size={10} color="teal" /> : "Login"}
+            {loading ? <BeatLoader size={10} color="teal" /> : "Login"}
           </Button>
         </CardFooter>
       </Card>
