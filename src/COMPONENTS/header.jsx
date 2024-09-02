@@ -57,7 +57,7 @@ export default function Header() {
                 <DropdownMenuItem className="text-red-500">
                   <LogOut className="mr-2" />
                   <span onClick={() => {
-                    fnLogout().then(() => {navigate('/landingpage')})
+                    fnLogout().then(() => {navigate('/')})
                   }}> 
                   LogOut
                   </span>
