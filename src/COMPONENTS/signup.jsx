@@ -1,32 +1,51 @@
-/* eslint-disable no-constant-condition */
 import {Card,CardContent,CardDescription,CardFooter,CardHeader,CardTitle } from "@/components/ui/card";
 import { Input } from "./ui/input";
 import Error from "./error";
 import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as Yup from "yup";
-// import {signup} from '../DATABASE/apiAuth'
+import {signup} from '../DATABASE/apiAuth'
+import { useNavigate, useSearchParams } from "react-router-dom";
+import useFetch from "@/HOOKS/use-fetch";
+import { UrlState } from "@/context";
+
 
 export default function Signup() {
   const [userData, setUserData] = useState({
-    name: "",
-    lastname: "",
+    fullname: '',
     email: "",
+    profile_pic: '',
     password: "",
     confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
 
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const longLink = searchParams.get('createNew')
+
   const handleChangeInput = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
 
     setUserData((u) => ({
       ...u,
-      [name]: value,
+      [name]: files ? files[0] : value,
     }));
   };
+
+  const { data, error, loading, fn: fnSignup } = useFetch(signup, userData);
+
+  const { fetchUser } = UrlState()
+
+  useEffect(() => {
+    if (error === null && data) {
+      navigate(`/dashboard?${longLink ? 'createNew=${longLink}' : ''}`);
+      fetchUser();
+    }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, error]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -34,8 +53,7 @@ export default function Signup() {
 
     try {
       const schema = Yup.object().shape({
-        name: Yup.string().required("You must write your name"),
-        lastname: Yup.string().required("You must write your lastname"),
+        fullname: Yup.string().required("You must write your full name"),
         email: Yup.string()
           .email("Invalid email")
           .required("Email is required"),
@@ -45,9 +63,13 @@ export default function Signup() {
         confirmPassword: Yup.string()
           .oneOf([Yup.ref("password"), null], "Your passwords do not match")
           .required("You must check that your password matches"),
+        profile_pic: Yup.mixed().required("Profile picture is required"),
       });
 
       await schema.validate(userData, { abortEarly: false });
+
+      await fnSignup();
+
     } catch (e) {
       const newErrors = {};
 
@@ -72,24 +94,13 @@ export default function Signup() {
         <CardContent className="space-y-4">
           <div>
             <Input
-              name="name"
+              name="fullname"
               type="text"
-              placeholder="Name"
+              placeholder="Full name"
               className=""
               onChange={handleChangeInput}
             />
-            {errors.name && <Error errorMessage={errors.name} />}{" "}
-          </div>
-
-          <div>
-            <Input
-              name="lastname"
-              type="text"
-              placeholder="Lastame"
-              className=""
-              onChange={handleChangeInput}
-            />
-            {errors.lastname && <Error errorMessage={errors.lastname} />}{" "}
+            {errors.fullname && <Error errorMessage={errors.fullname} />}{" "}
           </div>
 
           <div>
@@ -99,6 +110,7 @@ export default function Signup() {
               placeholder="Email"
               className=""
               onChange={handleChangeInput}
+              autoComplete='email'
             />
             {errors.email && <Error errorMessage={errors.email} />}{" "}
           </div>
@@ -127,11 +139,24 @@ export default function Signup() {
               <Error errorMessage={errors.confirmPassword} />
             )}
           </div>
+
+          <div>
+            <Input
+              name="profile_pic"
+              type="file"
+              accept='image/*'
+              className=""
+              onChange={handleChangeInput}
+            />
+            {errors.profile_pic && (
+              <Error errorMessage={errors.profile_pic} />
+            )}
+          </div>
         </CardContent>
 
         <CardFooter>
           <Button type="submit">
-            {true ? <BeatLoader size={10} color="teal" /> : "Create account"}
+            {loading ? <BeatLoader size={10} color="teal" /> : "Create account"}
           </Button>
         </CardFooter>
       </Card>

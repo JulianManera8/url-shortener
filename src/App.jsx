@@ -6,6 +6,8 @@ import Auth from "./PAGES/auth"
 import Link from "./PAGES/Link"
 import RedirectLink from "./PAGES/redirectLink"
 
+import UrlProvider from './context'
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -36,6 +38,8 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <RouterProvider router={router}/>
+    <UrlProvider>
+      <RouterProvider router={router}/>
+    </UrlProvider>
   )
 }

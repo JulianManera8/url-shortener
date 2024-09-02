@@ -8,6 +8,7 @@ import Error from './error';
 import useFetch from "@/HOOKS/use-fetch";
 import { login } from "@/DATABASE/apiAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { UrlState } from "@/context";
 
 export default function Login() {
     const [userData, setUserData] = useState({
@@ -31,12 +32,14 @@ export default function Login() {
 
     const { data, error, loading, fn: fnLogin } = useFetch(login, userData);
 
+    const { fetchUser } = UrlState()
+
     useEffect(() => {
         if (error === null && data) {
-          navigate(`/dashboard?${longLink ? 'createNew=${longLink}' : ''}`);
+          console.log(data)
+          navigate(`/?${longLink ? 'createNew=${longLink}' : ''}`);
+          fetchUser();
         }
-
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, error]);
 
@@ -80,12 +83,12 @@ export default function Login() {
                 
                 <CardContent className="space-y-4">
                     <div>
-                        <Input onChange={handleInputChange} type="email" name="email" placeholder="Email" />
+                        <Input onChange={handleInputChange} type="email" name="email" placeholder="Email" autoComplete='email'/>
                         {errors.email && <Error errorMessage={errors.email} />}
                     </div>
 
                     <div>
-                        <Input onChange={handleInputChange} type="password" name="password" placeholder="Password" />
+                        <Input onChange={handleInputChange} type="password" name="password" placeholder="Password" autoComplete='current-password'/>
                         {errors.password && <Error errorMessage={errors.password} />}
                     </div>
                 </CardContent>

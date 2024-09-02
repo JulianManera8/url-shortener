@@ -1,10 +1,25 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Login from '../COMPONENTS/login'
 import Signup from '../COMPONENTS/signup'
+import { useEffect } from "react";
+import { UrlState } from "@/context";
+
 
 export default function Auth() {
   const [searchParams] = useSearchParams();
+  const longLink = searchParams.get('createNew')
+
+  const navigate = useNavigate()
+
+  const { isAuth, loading} = UrlState();
+  
+  useEffect(() => {
+    if(isAuth && !loading) navigate(`/dashboard?${longLink ? 'createNew=${longLink}' : ''}`);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth, loading])
+  
 
   return (
     <div className="mt-8 flex flex-col items-center gap-10">
