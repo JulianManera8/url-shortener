@@ -9,6 +9,10 @@ import RequireAuth from "./COMPONENTS/require-auth"
 
 import UrlProvider from './context'
 
+// import { useEffect } from "react"
+// import {getUrls} from './DATABASE/apiUrls'
+// import {getClicksForUrls} from './DATABASE/apiClicks'
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -44,6 +48,14 @@ const router = createBrowserRouter([
 ])
 
 export default function App() {
+
+  // useEffect(() => {
+  //   console.log(getUrls())
+  //   console.log(getClicksForUrls())
+  
+  // }, [])
+  
+
   return (
     <UrlProvider>
       <RouterProvider router={router}/>

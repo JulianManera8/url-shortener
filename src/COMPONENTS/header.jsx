@@ -51,8 +51,10 @@ export default function Header() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <LinkIcon className="mr-2" />
-                  My Links
+                  <Link to="/dashboard" className="flex">
+                    <LinkIcon className="mr-2" />
+                    My Links
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-red-500">
                   <LogOut className="mr-2" />
