@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Copy, Trash, Download } from "lucide-react";
+import useFetch from "@/HOOKS/use-fetch";
+import { deleteUrl } from '../DATABASE/apiUrls'
+import { BeatLoader } from "react-spinners";
 
 /* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
 export default function LinkList({url, fetchUrls}) {
 
     const DownloadImage = () => {
@@ -19,6 +21,8 @@ export default function LinkList({url, fetchUrls}) {
 
         document.body.removeChild(a);
     }
+
+    const {loading: loadingDelete, fn: fnDeleteUrl} = useFetch(deleteUrl, url?.id)
 
 
     return (
@@ -40,8 +44,8 @@ export default function LinkList({url, fetchUrls}) {
                 <Button variant="ghost" onClick={DownloadImage}>
                     <Download />
                 </Button>
-                <Button variant="ghost">
-                    <Trash />
+                <Button variant="ghost" onClick={() => fnDeleteUrl().then(() => fetchUrls())}>
+                    {loadingDelete ? <BeatLoader size={5} color="white" /> : <Trash />}
                 </Button>
             </div>
         </div>

@@ -13,9 +13,10 @@ export default function LandingPage() {
     const handleShorten = (e) => {
         e.preventDefault();
 
-        if(longUrl) { 
-            navigate(`/auth?createNew=${longUrl}`)
-        }
+        if (longUrl) {
+          const encodedUrl = encodeURIComponent(longUrl);  // Codifica la URL aquí
+          navigate(`/dashboard?createNew=${encodedUrl}`);
+      }
     }
 
     return (
@@ -33,6 +34,7 @@ export default function LandingPage() {
           placeholder="Enter your loooong URL" 
           value={longUrl}
           onChange={(e) => setLongUrl(e.target.value)}
+          id="longUrl"
           />
           <Button> Make it Shorter! </Button>
         </form>
