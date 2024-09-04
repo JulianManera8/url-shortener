@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect } from "react";
+import PropTypes from "prop-types";
 import useFetch from "./HOOKS/use-fetch";
 import { getCurrentUser } from "./DATABASE/apiAuth";
 
@@ -18,6 +18,9 @@ const UrlProvider = ({ children }) => {
   return <UrlContext.Provider value={{user, fetchUser, isAuth, loading}}>{children}</UrlContext.Provider>;
 };
 
+UrlProvider.propTypes = {
+    children: PropTypes.node.isRequired, 
+};
 
 export const UrlState = () => {
     return useContext(UrlContext)

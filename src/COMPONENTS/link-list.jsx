@@ -8,26 +8,10 @@ import { BeatLoader } from "react-spinners";
 /* eslint-disable react/prop-types */
 export default function LinkList({url, fetchUrls}) {
 
-    const DownloadImage = () => {
-        const imageUrl = url?.qr
-        const imageName = url?.title
-    
-        const a = document.createElement('a')
-        a.href = imageUrl;
-        a.download = imageName;
-
-        document.body.appendChild(a);
-        a.click();
-
-        document.body.removeChild(a);
-    }
-
     const {loading: loadingDelete, fn: fnDeleteUrl} = useFetch(deleteUrl, url?.id)
-
 
     return (
         <div className="flex flex-col md:flex-row gap-5 p-4 border bg-gray-900 rounded-lg">
-            <img src={url?.qr}  alt="qr code" className="h-32 object-contain self-start"/>
             <Link to={`/link/${url?.id}`} className="flex flex-col flex-1 space-y-2"> 
                 <span className="w-max text-xl first-letter:uppercase font-extrabold underline hover:text-blue-300 cursor-pointer"> {url?.title} </span>
                 <span className=""> <b className="mr-2 text-blue-300"> New URL: </b>  <span className="hover:underline"> https://trimmr.vercel/{url?.custom_url ? url?.custom_url : url?.short_url } </span> </span>
@@ -40,9 +24,6 @@ export default function LinkList({url, fetchUrls}) {
                     () => { navigator.clipboard.writeText(`https://trimmr.vercel/${url?.custom_url ? url?.custom_url : url?.short_url }`)}
                 }>
                     <Copy />
-                </Button>
-                <Button variant="ghost" onClick={DownloadImage}>
-                    <Download />
                 </Button>
                 <Button variant="ghost" onClick={() => fnDeleteUrl().then(() => fetchUrls())}>
                     {loadingDelete ? <BeatLoader size={5} color="white" /> : <Trash />}

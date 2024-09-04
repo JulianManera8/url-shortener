@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { QRCode } from "react-qrcode-logo";
 import { UrlState } from "../context";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {Dialog,DialogContent,DialogHeader,DialogTitle,DialogTrigger,DialogFooter } from "@/components/ui/dialog";
@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import Error from "./error";
 import { Card } from "./ui/card";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import useFetch from "../HOOKS/use-fetch";
 import { createUrl } from "../DATABASE/apiUrls";
@@ -20,8 +20,6 @@ export default function CreateLink() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const longLink = searchParams.get("createNew");
-
-  const refQr = useRef();
 
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState({
@@ -61,12 +59,8 @@ export default function CreateLink() {
 
     try {
       await schema.validate(formData, { abortEarly: false });
-
-      const canvas = refQr.current.canvasRef.current;
-
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve));
-
-      await fnCreateUrl(blob);
+      
+      fnCreateUrl();
 
     } catch (e) {
       const newErrors = {};
@@ -121,10 +115,6 @@ export default function CreateLink() {
           </div>
           {error && <Error errorMessage={errors.message} />}
         </DialogHeader>
-
-        {formData?.longUrl && (
-          <QRCode value={formData.longUrl} size={150} ref={refQr} />
-        )}
 
         <DialogFooter className="sm:justify-center mt-4">
           <Button onClick={createNewLink} disabled={loading}>
