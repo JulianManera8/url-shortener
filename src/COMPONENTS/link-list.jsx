@@ -1,10 +1,26 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Copy, Delete, Download } from "lucide-react";
+import { Copy, Trash, Download } from "lucide-react";
 
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 export default function LinkList({url, fetchUrls}) {
+
+    const DownloadImage = () => {
+        const imageUrl = url?.qr
+        const imageName = url?.title
+    
+        const a = document.createElement('a')
+        a.href = imageUrl;
+        a.download = imageName;
+
+        document.body.appendChild(a);
+        a.click();
+
+        document.body.removeChild(a);
+    }
+
+
     return (
         <div className="flex flex-col md:flex-row gap-5 p-4 border bg-gray-900 rounded-lg">
             <img src={url?.qr}  alt="qr code" className="h-32 object-contain self-start"/>
@@ -21,11 +37,11 @@ export default function LinkList({url, fetchUrls}) {
                 }>
                     <Copy />
                 </Button>
-                <Button variant="ghost">
+                <Button variant="ghost" onClick={DownloadImage}>
                     <Download />
                 </Button>
                 <Button variant="ghost">
-                    <Delete />
+                    <Trash />
                 </Button>
             </div>
         </div>
