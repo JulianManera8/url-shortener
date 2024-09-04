@@ -78,13 +78,13 @@ export default function CreateLink() {
         if (!res) setSearchParams({});
       }}
     >
-      <DialogTrigger className="border border-white p-2 rounded-lg bg-white text-black ">
+      <DialogTrigger className="border border-white p-2 rounded-lg bg-white text-black text-xl ">
         Create new Link
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="flex flex-col gap-5">
-          <DialogTitle className="font-bold text-xl mb-3 flex-1 flex justify-center">
+          <DialogTitle className="font-bold text-3xl mb-3 flex-1 flex justify-center">
             Create a new Link
           </DialogTitle>
 
@@ -93,6 +93,7 @@ export default function CreateLink() {
             placeholder="Short Link's Title"
             onChange={handleChange}
             value={formData.title}
+            className="text-lg h-13"
           />
           {errors.title && <Error errorMessage={errors.title} />}
 
@@ -101,6 +102,7 @@ export default function CreateLink() {
             placeholder="Enter your looooong URL"
             onChange={handleChange}
             value={formData.longUrl}
+            className="text-lg h-13"
           />
           {errors.longUrl && <Error errorMessage={errors.longUrl} />}
 
@@ -111,14 +113,15 @@ export default function CreateLink() {
               placeholder="Custom Link (optional)"
               onChange={handleChange}
               value={formData.customUrl}
+              className="text-lg h-13"
             />
           </div>
           {error && <Error errorMessage={errors.message} />}
         </DialogHeader>
 
-        <DialogFooter className="sm:justify-center mt-4">
-          <Button onClick={createNewLink} disabled={loading}>
-            {loading ? <BeatLoader color="darkblue" size={10} /> : "Create Link"}
+        <DialogFooter className="sm:justify-center mt-4 ">
+          <Button onClick={createNewLink} disabled={loading} className="text-2xl">
+            {loading ? <BeatLoader color="black" size={10} /> : "Create Link"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -10,9 +10,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LinkIcon } from "lucide-react";
 import { Button } from "../COMPONENTS/ui/button";
-import { Copy, Trash, Download } from "lucide-react";
+import { Copy, Trash } from "lucide-react";
 import { BeatLoader } from "react-spinners";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import LocationStats from "@/COMPONENTS/location-stats";
 import DeviceStats from "@/COMPONENTS/device-stats";
 
@@ -52,25 +52,27 @@ export default function Link() {
   }
 
   return (
-    <div className="mt-5">
+    <div className="mt-8">
       {(loading || loadingStats) && (
         <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />
       )}
-      <div className="flex flex-col gap-8 sm:flex-row justify-between">
-        <div className="flex flex-col items-start gap-8 rounded-lg sm:w-2/5 ">
-          <span className="text-3xl font-extrabold hover:underline cursor-pointer">
+      <div className="flex flex-col gap-8 sm:flex-row justify-between mt-16">
+
+        {/* DATA OF THE LINK */}
+        <div className="flex flex-col items-start gap-8 rounded-lg sm:w-2/5 pl-6 pt-6">
+          <span className="text-4xl font-extrabold hover:underline cursor-pointer">
             Title: {url?.title}
           </span>
 
           <a
             href={`https://trimmr.vercel.app/${link}`}
             target="_blank"
-            className="cursor-pointer text-xl sm:text-1xl"
+            className="cursor-pointer text-2xl sm:text-2xl"
           >
-            <b className=" flex flex-row items-center text-xl sm:text-1xl text-blue-300 font-bold hover:underline cursor-pointer">
+            <b className=" flex flex-row items-center text-blue-300 font-bold hover:underline cursor-pointer">
               <LinkIcon className="p-1 size-5" /> Custom or Short URL:{" "}
             </b>{" "}
-            https://trimmr.vercel.app/{link}
+            https://trimmr.vercel.app/{ loading || loadingStats ? 'Loading....' : link}
           </a>
 
           <a
@@ -81,10 +83,10 @@ export default function Link() {
             <b className=" flex flex-row items-center text-xl sm:text-1xl text-blue-300 font-bold hover:underline cursor-pointer">
               <LinkIcon className="p-1 size-5" /> Original URL:
             </b>{" "}
-            {url?.original_url}
+            { loading || loadingStats ? 'Loading....' : url?.original_url}
           </a>
 
-          <span> Created: { loading || loadingStats ? 'Loading....' : new Date(url?.created_at).toLocaleString()} </span>
+          <span className="text-lg"> Created: { loading || loadingStats ? 'Loading....' : new Date(url?.created_at).toLocaleString()} </span>
 
           <div className="flex gap-2">
             <Button
@@ -114,8 +116,8 @@ export default function Link() {
 
         </div>
 
-
-        <Card className="sm:w-3/5">
+        {/* STATS OF THE LINK */}
+        <Card className="sm:w-3/5 m-0">
                 <CardHeader>
                     <CardTitle className="text-4xl font-bold">Stats</CardTitle>
                 </CardHeader>
@@ -125,17 +127,17 @@ export default function Link() {
                ? (<CardContent className="flex flex-col gap-6"> 
                     <Card>
                       <CardHeader>
-                        <CardTitle>Total clicks</CardTitle>
+                        <CardTitle className="text-4xl">Total clicks</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p>{stats?.length}</p>
+                        <p className="text-xl">{stats?.length}</p>
                       </CardContent>
                     </Card>
 
-                    <CardTitle className="text-4xl font-bold">Location Data</CardTitle>
+                    <CardTitle className="text-3xl font-bold">Location Data</CardTitle>
                     <LocationStats stats={stats}/>
 
-                    <CardTitle className="text-4xl font-bold">Device Info</CardTitle>
+                    <CardTitle className="text-3xl font-bold">Device Info</CardTitle>
                     <DeviceStats stats={stats}/>
 
                  </CardContent>) 

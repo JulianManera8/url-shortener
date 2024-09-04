@@ -29,7 +29,7 @@ export default function Header() {
     <>
       <nav className="flex justify-between items-center mt-3">
         <Link to="/">
-          <img className="h-16" src="/logo.png" alt="Trimrr logo" />
+          <img className="h-[85px]" src="/logo.png" alt="Trimrr logo" />
         </Link>
 
         <div className=" px-3">
@@ -38,25 +38,31 @@ export default function Header() {
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src={user?.user_metadata?.profile_pic} />
+                <Avatar className="w-16 h-16">
+                  <AvatarImage src={user?.user_metadata?.profile_pic} className="object-fit" />
                   <AvatarFallback>{AvatarFB()}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent>
                 <DropdownMenuLabel>
-                  <span className="capitalize"> {user?.user_metadata?.fullname.split(" ")[0]} </span>
-                  <span className="capitalize"> {user?.user_metadata?.fullname.split(" ")[1]} </span>
+                  <span className="capitalize text-xl"> {user?.user_metadata?.fullname.split(" ")[0]} </span>
+                  <span className="capitalize text-xl"> {user?.user_metadata?.fullname.split(" ")[1]} </span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link to="/dashboard" className="flex">
+                  <Link to="/" className="flex text-xl">
+                    <LinkIcon className="mr-2" />
+                    Home
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/dashboard" className="flex text-xl">
                     <LinkIcon className="mr-2" />
                     My Links
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-red-500">
+                <DropdownMenuItem className="text-red-500 text-xl">
                   <LogOut className="mr-2" />
                   <span onClick={() => {
                     fnLogout().then(() => {navigate('/')})

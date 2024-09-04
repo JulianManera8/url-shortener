@@ -44,25 +44,25 @@ export default function Dashboard() {
       <div className="grid grid-cols-2 gap-4">
         <Card>
           <CardHeader>
-            <CardTitle>Links created</CardTitle>
+            <CardTitle className="text-3xl">Links created</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{urls?.length}</p>
+            <p className="text-2xl">{urls?.length}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Total clicks</CardTitle>
+            <CardTitle className="text-3xl">Total clicks</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{clicks?.length}</p>
+            <p className="text-2xl">{clicks?.length}</p>
           </CardContent>
         </Card>
       </div>
 
       <div className="flex justify-center items-center gap-10">
-        <h1 className="text-2xl font-bold"> My Links </h1>
+        <h1 className="text-4xl font-bold"> My Links </h1>
         <CreateLink />
       </div>
 
@@ -73,6 +73,7 @@ export default function Dashboard() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           id='filter'
+          className="w-full pl-5 text-xl h-14"
         />
         <Filter className="absolute top-2 right-2 p-1 size-6" />
       </div>

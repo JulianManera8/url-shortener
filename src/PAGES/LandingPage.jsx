@@ -21,12 +21,12 @@ export default function LandingPage() {
 
     return (
       <div className="flex flex-col items-center">
-        <h2 className="my-10 sm:my-16 text-2xl sm:text-3xl lg:text-5xl text-white text-center font-extrabold">
+        <h2 className="mt-4 mb-8 sm:my-13 text-2xl sm:text-3xl lg:text-5xl text-white text-center font-extrabold">
           The only URL Shortener <br /> you will ever need! 👇
         </h2>
 
         <form 
-          className="sm:h-14 flex flex-col sm:flex-row w-full gap-2 md:px-11"
+          className="sm:h-18 mt-3 flex flex-col sm:flex-row w-full gap-2 md:px-11"
           onSubmit={handleShorten}
         >
           <Input 
@@ -35,8 +35,9 @@ export default function LandingPage() {
           value={longUrl}
           onChange={(e) => setLongUrl(e.target.value)}
           id="longUrl"
+          className="h-14 pl-5 text-xl"
           />
-          <Button> Make it Shorter! </Button>
+          <Button className="h-14 text-xl"> Make it Shorter! </Button>
         </form>
         <img
           src="/banner1.jpg"
@@ -44,25 +45,25 @@ export default function LandingPage() {
           className="w-full my-11 md:px-11"
         />
 
-        <Accordion type="multiple" className=" w-full text-left">
+        <Accordion type="multiple" className=" w-full text-2xl text-left">
 
           <AccordionItem value="item-1">
-            <AccordionTrigger>Is it accessible?</AccordionTrigger>
-            <AccordionContent>
+            <AccordionTrigger className="">Is it accessible?</AccordionTrigger>
+            <AccordionContent className="text-xl">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="item-2">
             <AccordionTrigger>Do i need to create an account to use the app?</AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="text-xl">
             Yes, Creating an account allows you to manage your URLs, view analytics, and customize your short URLs.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="item-3">
             <AccordionTrigger>What analytics are available?</AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="text-xl">
               You can view the number of clicks, geolocation data of the clicks and device types (mobile or desktop) for each of your shortened URLs.
             </AccordionContent>
           </AccordionItem>
