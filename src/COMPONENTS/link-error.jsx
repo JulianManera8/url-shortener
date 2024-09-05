@@ -1,5 +1,5 @@
 import { Card, CardContent, CardFooter } from "@/COMPONENTS/ui/card"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/COMPONENTS/ui/button"
 import { XCircle } from "lucide-react"
 import {Link} from "react-router-dom"
 
