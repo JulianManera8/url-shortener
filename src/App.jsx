@@ -3,7 +3,7 @@ import AppLayout from "./LAYOUTS/AppLayout"
 import LandingPage from "./PAGES/LandingPage"
 import Dashboard from "./PAGES/dashboard"
 import Auth from "./PAGES/auth"
-import Link from "./PAGES/Link"
+import SingleLink from "./PAGES/Link"
 import RedirectLink from "./PAGES/redirectLink"
 import RequireAuth from "./COMPONENTS/require-auth"
 
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         path: '/link/:id',
         element: 
         <RequireAuth>
-          <Link />
+          <SingleLink />
         </RequireAuth>
       },
       {

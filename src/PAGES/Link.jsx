@@ -15,7 +15,7 @@ import LocationStats from "@/COMPONENTS/location-stats";
 import DeviceStats from "@/COMPONENTS/device-stats";
 
 
-export default function Link() {
+export default function SingleLink() {
   const { user } = UrlState();
   const { id } = useParams();
   const navigate = useNavigate();

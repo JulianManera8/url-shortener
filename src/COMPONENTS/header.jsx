@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LinkIcon, LogOut } from "lucide-react";
+import { LinkIcon, LogOut, House } from "lucide-react";
 import useFetch from "@/HOOKS/use-fetch";
 import { UrlState } from "@/context";
 import { BarLoader } from "react-spinners";
@@ -15,7 +16,9 @@ export default function Header() {
 
   const { user, fetchUser } = UrlState();
 
-  useEffect(() => {fetchUser()}, [user])
+  useEffect(() => {
+    fetchUser()
+  }, [user])
 
   const AvatarFB = () => {
     let firstLetter = user?.user_metadata?.fullname.split(' ')[0]
@@ -54,7 +57,7 @@ export default function Header() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <Link to="/" className="flex text-xl">
-                    <LinkIcon className="mr-2" />
+                    <House className="mr-2" />
                     Home
                   </Link>
                 </DropdownMenuItem>

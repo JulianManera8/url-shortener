@@ -9,6 +9,7 @@ import useFetch from "@/HOOKS/use-fetch";
 import { login } from "@/DATABASE/apiAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { UrlState } from "@/context";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function Login() {
     const [userData, setUserData] = useState({
@@ -17,6 +18,8 @@ export default function Login() {
     });
 
     const [errors, setErrors] = useState({});
+
+    const [passEye, setPassEye] = useState(true)
 
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
@@ -87,13 +90,15 @@ export default function Login() {
                         {errors.email && <Error errorMessage={errors.email} />}
                     </div>
 
-                    <div>
-                        <Input onChange={handleInputChange} type="password" name="password" placeholder="Password" autoComplete='current-password'/>
+                    <div className="relative">
+                        <Input onChange={handleInputChange} type={passEye ? 'password': 'text'} name="password" placeholder="Password" autoComplete='current-password'/>
+                        {passEye ? <Eye className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/>}
+                        
                         {errors.password && <Error errorMessage={errors.password} />}
                     </div>
                 </CardContent>
 
-                <CardFooter>
+                <CardFooter className="flex justify-center">
                     <Button type="submit">
                         {loading ? <BeatLoader size={10} color="teal" /> : "Login"}
                     </Button>

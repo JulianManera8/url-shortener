@@ -9,7 +9,7 @@ import {signup} from '../DATABASE/apiAuth'
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useFetch from "@/HOOKS/use-fetch";
 import { UrlState } from "@/context";
-
+import { Eye, EyeOff } from "lucide-react";
 
 export default function Signup() {
   const [userData, setUserData] = useState({
@@ -19,6 +19,8 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
+
+  const [passEye, setPassEye] = useState(true)
 
   const [errors, setErrors] = useState({});
 
@@ -91,7 +93,7 @@ export default function Signup() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
           <div>
             <Input
               name="fullname"
@@ -115,38 +117,43 @@ export default function Signup() {
             {errors.email && <Error errorMessage={errors.email} />}{" "}
           </div>
 
-          <div>
+          <div className="relative">
             <Input
               name="password"
-              type="password"
+              type={passEye ? 'password': 'text'}
               placeholder="Password"
               className=""
               onChange={handleChangeInput}
             />
+            {passEye ? <Eye className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/>}
 
             {errors.password && <Error errorMessage={errors.password} />}
           </div>
 
-          <div>
+          <div className="relative">
             <Input
               name="confirmPassword"
-              type="password"
+              type={passEye ? 'password': 'text'}
               placeholder="Confirm password"
               className=""
               onChange={handleChangeInput}
             />
+            {passEye ? <Eye className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/>}
+
             {errors.confirmPassword && (
               <Error errorMessage={errors.confirmPassword} />
             )}
           </div>
 
           <div>
+            <label htmlFor="profile_pic" className="text-gray-400">Select a profile picture</label>
             <Input
               name="profile_pic"
               type="file"
               accept='image/*'
-              className=""
+              className="flex justify mt-3"
               onChange={handleChangeInput}
+              placeholder="Select a profile picture"
             />
             {errors.profile_pic && (
               <Error errorMessage={errors.profile_pic} />
@@ -154,7 +161,7 @@ export default function Signup() {
           </div>
         </CardContent>
 
-        <CardFooter>
+        <CardFooter className="flex justify-center">
           <Button type="submit">
             {loading ? <BeatLoader size={10} color="teal" /> : "Create account"}
           </Button>
