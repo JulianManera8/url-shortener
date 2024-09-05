@@ -1,12 +1,12 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/COMPONENTS/ui/card";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
 import * as Yup from 'yup';
 import { useEffect, useState } from "react";
 import Error from './error';
-import useFetch from "@/hooks/use-fetch";
-import { login } from "@/database/apiAuth";
+import useFetch from "@/HOOKS/use-fetch";
+import { login } from "@/DATABASE/apiAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { UrlState } from "@/context";
 import { Eye, EyeOff } from "lucide-react";

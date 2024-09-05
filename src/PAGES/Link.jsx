@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useParams } from "react-router-dom";
 import { UrlState } from "../context";
-import useFetch from "../hooks/use-fetch";
-import { getClicksForUrl } from "../database/apiClicks";
-import { getUrl, deleteUrl } from "../database/apiUrls";
+import useFetch from "../HOOKS/use-fetch";
+import { getClicksForUrl } from "../DATABASE/apiClicks";
+import { getUrl, deleteUrl } from "../DATABASE/apiUrls";
 import { BarLoader } from "react-spinners";
 import { useEffect } from "react";
 import { LinkIcon } from "lucide-react";
-import { Button } from "../components/ui/button";
+import { Button } from "../COMPONENTS/ui/button";
 import { Copy, Trash } from "lucide-react";
 import { BeatLoader } from "react-spinners";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import LocationStats from "@/components/location-stats";
-import DeviceStats from "@/components/device-stats";
+import { Card, CardContent, CardHeader, CardTitle } from "@/COMPONENTS/ui/card";
+import LocationStats from "@/COMPONENTS/location-stats";
+import DeviceStats from "@/COMPONENTS/device-stats";
 
 
 export default function SingleLink() {

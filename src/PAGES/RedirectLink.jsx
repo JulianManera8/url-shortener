@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from 'react-router-dom'
-import useFetch from '../hooks/use-fetch'
-import { getLongUrl } from '../database/apiUrls'
-import { storeClicks } from '../database/apiClicks'
+import useFetch from '../HOOKS/use-fetch'
+import { getLongUrl } from '../DATABASE/apiUrls'
+import { storeClicks } from '../DATABASE/apiClicks'
 import { useEffect } from 'react'
 import { BarLoader } from 'react-spinners'
 

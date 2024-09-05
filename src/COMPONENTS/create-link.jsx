@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { UrlState } from "../context";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import {Dialog,DialogContent,DialogHeader,DialogTitle,DialogTrigger,DialogFooter } from "@/components/ui/dialog";
+import {Dialog,DialogContent,DialogHeader,DialogTitle,DialogTrigger,DialogFooter } from "@/COMPONENTS/ui/dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import Error from "./error";
 import { Card } from "./ui/card";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
-import useFetch from "../hooks/use-fetch";
-import { createUrl } from "../database/apiUrls";
+import useFetch from "../HOOKS/use-fetch";
+import { createUrl } from "../DATABASE/apiUrls";
 import { BeatLoader } from "react-spinners";
 
 export default function CreateLink() {

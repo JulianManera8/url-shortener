@@ -1,14 +1,14 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RequireAuth from "./components/require-auth";
-import AppLayout from "./layouts/AppLayout";
+import RequireAuth from "./COMPONENTS/require-auth";
+import AppLayout from "./LAYOUTS/AppLayout";
 import UrlProvider from './context';
 
-const LandingPage = lazy(() => import("./pages/LandingPage"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Auth = lazy(() => import("./pages/Auth"));
-const SingleLink = lazy(() => import("./pages/Link"));
-const RedirectLink = lazy(() => import("./pages/RedirectLink"));
+const LandingPage = lazy(() => import("./PAGES/LandingPage"));
+const Dashboard = lazy(() => import("./PAGES/Dashboard"));
+const Auth = lazy(() => import("./PAGES/Auth"));
+const SingleLink = lazy(() => import("./PAGES/Link"));
+const RedirectLink = lazy(() => import("./PAGES/RedirectLink"));
 
 const router = createBrowserRouter([
   {

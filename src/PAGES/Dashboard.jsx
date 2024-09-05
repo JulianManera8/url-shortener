@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { BarLoader } from "react-spinners";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/COMPONENTS/ui/card";
+import { Input } from "@/COMPONENTS/ui/input";
 import { useState, useEffect } from "react";
 import { Filter } from "lucide-react";
-import useFetch from "@/hooks/use-fetch";
+import useFetch from "@/HOOKS/use-fetch";
 import { UrlState } from "@/context";
-import { getUrls } from "../database/apiUrls";
-import { getClicksForUrls } from "@/database/apiClicks";
-import Error from "@/components/error";
-import LinkList from "@/components/link-list";
-import CreateLink from "../components/create-link";
+import { getUrls } from "../DATABASE/apiUrls";
+import { getClicksForUrls } from "@/DATABASE/apiClicks";
+import Error from "@/COMPONENTS/error";
+import LinkList from "@/COMPONENTS/link-list";
+import CreateLink from "../COMPONENTS/create-link";
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");

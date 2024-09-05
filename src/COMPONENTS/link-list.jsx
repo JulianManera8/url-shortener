@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Copy, Trash } from "lucide-react";
-import useFetch from "@/hooks/use-fetch";
-import { deleteUrl } from '../database/apiUrls'
+import useFetch from "@/HOOKS/use-fetch";
+import { deleteUrl } from '../DATABASE/apiUrls'
 import { BeatLoader } from "react-spinners";
 
 /* eslint-disable react/prop-types */

@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/COMPONENTS/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/COMPONENTS/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/COMPONENTS/ui/avatar";
 import { LinkIcon, LogOut, House } from "lucide-react";
-import useFetch from "@/hooks/use-fetch";
+import useFetch from "@/HOOKS/use-fetch";
 import { UrlState } from "@/context";
 import { BarLoader } from "react-spinners";
-import {logout} from '../database/apiAuth'
+import {logout} from '../DATABASE/apiAuth'
 import { useEffect } from "react";
 
 export default function Header() {
