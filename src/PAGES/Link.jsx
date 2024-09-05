@@ -66,14 +66,14 @@ export default function SingleLink() {
           </span>
 
           <a
-            href={`https://trimmr.vercel.app/${link}`}
+            href={`https://urlink-short.vercel.app/${link}`}
             target="_blank"
             className="cursor-pointer text-2xl sm:text-2xl"
           >
             <b className=" flex flex-row items-center text-blue-300 font-bold hover:underline cursor-pointer">
               <LinkIcon className="p-1 size-5" /> Custom or Short URL:{" "}
             </b>{" "}
-            https://trimmr.vercel.app/{ loading || loadingStats ? 'Loading....' : link}
+            https://urlink-short.vercel.app/{ loading || loadingStats ? 'Loading....' : link}
           </a>
 
           <a
@@ -94,7 +94,7 @@ export default function SingleLink() {
               variant="ghost"
               onClick={() => {
                 navigator.clipboard.writeText(
-                  `https://trimmr.vercel/${
+                  `https://urlink-short.vercel.app/${
                     url?.custom_url ? url?.custom_url : url?.short_url
                   }`
                 );
