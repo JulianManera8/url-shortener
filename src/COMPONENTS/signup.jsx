@@ -5,9 +5,9 @@ import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
-import {signup} from '../DATABASE/apiAuth'
+import {signup} from '../database/apiAuth'
 import { useNavigate, useSearchParams } from "react-router-dom";
-import useFetch from "@/HOOKS/use-fetch";
+import useFetch from "@/hooks/use-fetch";
 import { UrlState } from "@/context";
 import { Eye, EyeOff } from "lucide-react";
 

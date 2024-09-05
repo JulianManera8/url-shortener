@@ -8,8 +8,8 @@ import Error from "./error";
 import { Card } from "./ui/card";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
-import useFetch from "../HOOKS/use-fetch";
-import { createUrl } from "../DATABASE/apiUrls";
+import useFetch from "../hooks/use-fetch";
+import { createUrl } from "../database/apiUrls";
 import { BeatLoader } from "react-spinners";
 
 export default function CreateLink() {

@@ -1,5 +1,5 @@
-import { Button } from "@/COMPONENTS/ui/button";
-import { Input } from "@/COMPONENTS/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion"
 import {useState} from 'react'
 import { useNavigate } from "react-router-dom";

@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LinkIcon, LogOut, House } from "lucide-react";
-import useFetch from "@/HOOKS/use-fetch";
+import useFetch from "@/hooks/use-fetch";
 import { UrlState } from "@/context";
 import { BarLoader } from "react-spinners";
-import {logout} from '../DATABASE/apiAuth'
+import {logout} from '../database/apiAuth'
 import { useEffect } from "react";
 
 export default function Header() {

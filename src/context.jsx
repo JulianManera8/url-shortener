@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import useFetch from "./HOOKS/use-fetch";
-import { getCurrentUser } from "./DATABASE/apiAuth";
+import useFetch from "./hooks/use-fetch";
+import { getCurrentUser } from "./database/apiAuth";
 
 const UrlContext = createContext();
 
