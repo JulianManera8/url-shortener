@@ -6,9 +6,9 @@ import { deleteUrl } from '../DATABASE/apiUrls'
 import { BeatLoader } from "react-spinners";
 
 /* eslint-disable react/prop-types */
-export default function LinkList({url, fetchUrls}) {
+export default function LinkList({url = [], fetchUrls}) {
 
-    const {loading: loadingDelete, fn: fnDeleteUrl} = useFetch(deleteUrl, url?.id)
+    const {loading: loadingDelete, fn: fnDeleteUrl} = useFetch(deleteUrl, url.id)
 
     return (
         <div className="flex flex-col md:flex-row gap-5 p-4 border bg-gray-900 rounded-lg">
@@ -25,7 +25,7 @@ export default function LinkList({url, fetchUrls}) {
                 }>
                     <Copy />
                 </Button>
-                <Button variant="ghost" onClick={() => fnDeleteUrl().then(() => fetchUrls())}>
+                <Button variant="ghost" onClick={() => fnDeleteUrl().then(() => fetchUrls())} disable={loadingDelete}>
                     {loadingDelete ? <BeatLoader size={5} color="white" /> : <Trash />}
                 </Button>
             </div>

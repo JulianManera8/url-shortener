@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { UrlState } from "../context";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -21,11 +20,20 @@ export default function CreateLink() {
   const [searchParams, setSearchParams] = useSearchParams();
   const longLink = searchParams.get("createNew");
 
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     title: "",
     longUrl: longLink ? longLink : "",
     customUrl: "",
+  });
+
+  const schema = Yup.object().shape({
+    title: Yup.string().required("You must provide a title"),
+    longUrl: Yup
+      .string()
+      .url("Must be a valid URL")
+      .required("Please provide a URL"),
+    customUrl: Yup.string(),
   });
 
   const handleChange = (e) => {
@@ -34,13 +42,6 @@ export default function CreateLink() {
       [e.target.id]: e.target.value,
     });
   };
-  const schema = Yup.object().shape({
-    title: Yup.string().required("You must provide a title"),
-    longUrl: Yup.string()
-      .url("Must be a valid URL")
-      .required("Please provide a URL"),
-    customUrl: Yup.string(),
-  });
 
   const { loading, error, data, fn: fnCreateUrl } = useFetch(createUrl, {
     ...formData,
@@ -60,11 +61,11 @@ export default function CreateLink() {
     try {
       await schema.validate(formData, { abortEarly: false });
       
-      fnCreateUrl();
+      await fnCreateUrl();
 
     } catch (e) {
       const newErrors = {};
-      e.inner.forEach((err) => {
+      e?.inner?.forEach((err) => {
         newErrors[err.path] = err.message;
       });
       setErrors(newErrors);
@@ -78,7 +79,7 @@ export default function CreateLink() {
         if (!res) setSearchParams({});
       }}
     >
-      <DialogTrigger className="border border-white p-2 rounded-lg bg-white text-black text-xl ">
+      <DialogTrigger asChild className="border border-white p-2 rounded-lg bg-white text-black text-xl ">
         Create new Link
       </DialogTrigger>
 

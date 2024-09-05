@@ -9,11 +9,10 @@ import { BarLoader } from "react-spinners";
 import {logout} from '../DATABASE/apiAuth'
 
 export default function Header() {
+  const {loading, fn: fnLogout } = useFetch(logout)
   const navigate = useNavigate();
 
-  const { user } = UrlState();
-
-  const {loading, fn: fnLogout } = useFetch(logout)
+  const { user, fetchUser } = UrlState();
 
   const AvatarFB = () => {
     let firstLetter = user?.user_metadata?.fullname.split(' ')[0]
@@ -62,14 +61,11 @@ export default function Header() {
                     My Links
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-red-500 text-xl">
-                  <LogOut className="mr-2" />
-                  <span onClick={() => {
-                    fnLogout().then(() => {navigate('/')})
-                  }}> 
-                  LogOut
-                  </span>
-
+                <DropdownMenuItem className="text-red-500 text-xl" onClick={() => {
+                    fnLogout().then(() => {navigate('/auth')})
+                  }}>
+                <LogOut className="mr-2" />
+                  <span> Logout </span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

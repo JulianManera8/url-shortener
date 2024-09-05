@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import useFetch from "./HOOKS/use-fetch";
@@ -13,7 +14,7 @@ const UrlProvider = ({ children }) => {
 
     useEffect( () => {
         fetchUser()
-    },[fetchUser])
+    },[])
 
   return <UrlContext.Provider value={{user, fetchUser, isAuth, loading}}>{children}</UrlContext.Provider>;
 };

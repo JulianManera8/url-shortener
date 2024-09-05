@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UrlState } from "../context";
 import useFetch from "../HOOKS/use-fetch";
 import { getClicksForUrl } from "../DATABASE/apiClicks";
 import { getUrl, deleteUrl } from "../DATABASE/apiUrls";
 import { BarLoader } from "react-spinners";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { LinkIcon } from "lucide-react";
 import { Button } from "../COMPONENTS/ui/button";
 import { Copy, Trash } from "lucide-react";
@@ -29,18 +27,21 @@ export default function Link() {
     fn,
   } = useFetch(getUrl, { id, user_id: user?.id });
 
-  const { loading: loadingDelete, fn: fnDeleteUrl } = useFetch(deleteUrl, id);
-
   const {
     loading: loadingStats,
     data: stats,
     fn: fnStats,
   } = useFetch(getClicksForUrl, id);
 
+  const { loading: loadingDelete, fn: fnDeleteUrl } = useFetch(deleteUrl, id);
+
   useEffect(() => {
     fn();
-    fnStats();
   }, []);
+
+  useEffect(() => {
+    if (!error && loading === false) fnStats();
+  }, [loading, error]);
 
   if (error) {
     navigate("/dashboard");
@@ -104,7 +105,12 @@ export default function Link() {
 
             <Button
               variant="ghost"
-              onClick={() => fnDeleteUrl()}
+              onClick={() =>
+                fnDeleteUrl().then(() => {
+                  navigate("/dashboard");
+                })
+              }
+              disable={loadingDelete}
             >
               {loadingDelete ? (
                 <BeatLoader size={5} color="white" />
@@ -122,7 +128,7 @@ export default function Link() {
                     <CardTitle className="text-4xl font-bold">Stats</CardTitle>
                 </CardHeader>
                 
-               {stats && stats?.length 
+               {stats && stats.length 
 
                ? (<CardContent className="flex flex-col gap-6"> 
                     <Card>

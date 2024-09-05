@@ -1,7 +1,6 @@
 import { Button } from "@/COMPONENTS/ui/button";
 import { Input } from "@/COMPONENTS/ui/input";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion"
-
 import {useState} from 'react'
 import { useNavigate } from "react-router-dom";
 

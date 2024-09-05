@@ -16,20 +16,19 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { user } = UrlState();
-  const { loading, error, data: urls, fn: fnUrls } = useFetch(getUrls, user?.id);
-
-  useEffect(() => {
-    fnUrls();
-  }, []);
+  const { loading, error, data: urls, fn: fnUrls } = useFetch(getUrls, user.id);
 
   const { loading: loadingClicks, data: clicks, fn: fnClicks, } = useFetch(
     getClicksForUrls,
     urls?.map((url) => url.id)
   );
 
+  useEffect(() => {
+    fnUrls();
+  }, []);
 
   const filterUrls = urls?.filter((url) => {
-    return url?.title?.toLowerCase().includes(searchQuery.toLowerCase());
+    url.title.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   useEffect(() => {
@@ -38,9 +37,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col gap-8 mt-5">
-      {loading ||
-        (loadingClicks && <BarLoader width={"100%"} color="#36d7b7" />)}
-
+      {(loading || loadingClicks) && (<BarLoader width={"100%"} color="#36d7b7" />)}
       <div className="grid grid-cols-2 gap-4">
         <Card>
           <CardHeader>
@@ -80,9 +77,9 @@ export default function Dashboard() {
 
       {error && <Error errorMessage={error?.message} />}
 
-      {(filterUrls || []).map((url, i) => {
-        return <LinkList key={i} url={url} fetchUrls={fnUrls} />;
-      })}
+      {(filterUrls || []).map((url, i) => (
+        <LinkList key={i} url={url} fetchUrls={fnUrls} />
+      ))}
     </div>
   );
 }
