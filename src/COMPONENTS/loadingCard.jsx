@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/COMPONENTS/ui/card"
 import { Loader2 } from "lucide-react"
 
 export default function LoadingCard({msg}) {

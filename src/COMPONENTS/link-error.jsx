@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardContent, CardFooter } from "@/COMPONENTS/ui/card"
 import { Button } from "@/components/ui/button"
 import { XCircle } from "lucide-react"
 import {Link} from "react-router-dom"
