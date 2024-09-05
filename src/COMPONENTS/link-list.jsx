@@ -6,7 +6,7 @@ import { deleteUrl } from '../DATABASE/apiUrls'
 import { BeatLoader } from "react-spinners";
 
 /* eslint-disable react/prop-types */
-export default function LinkList({url = [], fetchUrls}) {
+export default function LinkList({url, fetchUrls}) {
 
     const {loading: loadingDelete, fn: fnDeleteUrl} = useFetch(deleteUrl, url.id)
 

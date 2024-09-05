@@ -16,6 +16,7 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { user } = UrlState();
+
   const { loading, error, data: urls, fn: fnUrls } = useFetch(getUrls, user.id);
 
   const { loading: loadingClicks, data: clicks, fn: fnClicks, } = useFetch(
@@ -28,7 +29,7 @@ export default function Dashboard() {
   }, []);
 
   const filterUrls = urls?.filter((url) => {
-    url.title.toLowerCase().includes(searchQuery.toLowerCase());
+    return url.title.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   useEffect(() => {
@@ -53,7 +54,7 @@ export default function Dashboard() {
             <CardTitle className="text-3xl">Total clicks</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl">{clicks?.length}</p>
+            <p className="text-2xl">{clicks?.length > 0 ? clicks?.length : 0}</p>
           </CardContent>
         </Card>
       </div>
@@ -77,9 +78,13 @@ export default function Dashboard() {
 
       {error && <Error errorMessage={error?.message} />}
 
-      {(filterUrls || []).map((url, i) => (
+      {urls?.length > 1 ? (filterUrls || []).map((url, i) => (
         <LinkList key={i} url={url} fetchUrls={fnUrls} />
-      ))}
+      )) : (<span className="text-xl m-auto"> You have not created any link yet, try one!</span>)}
+
+      {/* {(filterUrls || []).map((url, i) => (
+        <LinkList key={i} url={url} fetchUrls={fnUrls} />
+      ))} */}
     </div>
   );
 }

@@ -7,12 +7,15 @@ import useFetch from "@/HOOKS/use-fetch";
 import { UrlState } from "@/context";
 import { BarLoader } from "react-spinners";
 import {logout} from '../DATABASE/apiAuth'
+import { useEffect } from "react";
 
 export default function Header() {
   const {loading, fn: fnLogout } = useFetch(logout)
   const navigate = useNavigate();
 
   const { user, fetchUser } = UrlState();
+
+  useEffect(() => {fetchUser()}, [user])
 
   const AvatarFB = () => {
     let firstLetter = user?.user_metadata?.fullname.split(' ')[0]
@@ -61,11 +64,13 @@ export default function Header() {
                     My Links
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-red-500 text-xl" onClick={() => {
-                    fnLogout().then(() => {navigate('/auth')})
-                  }}>
-                <LogOut className="mr-2" />
-                  <span> Logout </span>
+                <DropdownMenuItem className="text-red-500 text-xl">
+                  <LogOut className="mr-2" />
+                  <span onClick={() => {
+                    fnLogout().then(() => {navigate('/')})
+                  }}> 
+                  LogOut
+                  </span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

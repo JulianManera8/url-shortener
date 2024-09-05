@@ -79,7 +79,7 @@ export default function CreateLink() {
         if (!res) setSearchParams({});
       }}
     >
-      <DialogTrigger asChild className="border border-white p-2 rounded-lg bg-white text-black text-xl ">
+      <DialogTrigger className="border border-white p-2 rounded-lg bg-white text-black text-xl ">
         Create new Link
       </DialogTrigger>
 
