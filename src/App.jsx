@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AppLayout from "./layouts/AppLayout";
 import RequireAuth from "./components/require-auth";
+import AppLayout from "./layouts/AppLayout";
 import UrlProvider from './context';
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
