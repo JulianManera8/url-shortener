@@ -4,7 +4,6 @@ import AppLayout from "./layouts/AppLayout";
 import RequireAuth from "./components/require-auth";
 import UrlProvider from './context';
 
-// Carga dinámica (code-splitting) para las páginas
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Auth = lazy(() => import("./pages/Auth"));
