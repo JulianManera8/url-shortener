@@ -2,7 +2,9 @@ import { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RequireAuth from "./COMPONENTS/require-auth";
 import AppLayout from "./LAYOUTS/AppLayout";
-import UrlProvider from './context';
+import UrlProvider from "./context";
+
+import LoadingCard from "./COMPONENTS/loadingCard";
 
 const LandingPage = lazy(() => import("./PAGES/LandingPage"));
 const Dashboard = lazy(() => import("./PAGES/Dashboard"));
@@ -15,61 +17,57 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: (
-          <Suspense fallback={
-            <div className="flex items-center justify-center h-screen">
-              <span className="text-4xl font-extrabold">Loading...</span>
-            </div>
-          }>
+          <Suspense fallback={<LoadingCard msg={'Loading...'}/>}>
             <LandingPage />
           </Suspense>
-        )
+        ),
       },
       {
-        path: '/dashboard',
+        path: "/dashboard",
         element: (
           <RequireAuth>
-            <Suspense fallback={<div>Loading Dashboard...</div>}>
+            <Suspense fallback={<LoadingCard />}>
               <Dashboard />
             </Suspense>
           </RequireAuth>
-        )
+        ),
       },
       {
-        path: '/auth',
+        path: "/auth",
         element: (
-          <Suspense fallback={<div>Loading Auth...</div>}>
+          <Suspense fallback={<LoadingCard />}>
             <Auth />
           </Suspense>
-        )
+        ),
       },
       {
-        path: '/link/:id',
+        path: "/link/:id",
         element: (
           <RequireAuth>
-            <Suspense fallback={<div>Loading Single Link...</div>}>
+            <Suspense fallback={<LoadingCard />}>
               <SingleLink />
             </Suspense>
           </RequireAuth>
-        )
+        ),
       },
       {
-        path: '/:id',
+        path: "/:id",
         element: (
-          <Suspense fallback={<div>Redirecting...</div>}>
+          <Suspense fallback={<LoadingCard />}>
             <RedirectLink />
           </Suspense>
-        )
+        ),
       },
-    ]
-  }
+    ],
+  },
 ]);
 
 export default function App() {
   return (
     <UrlProvider>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </UrlProvider>
   );
 }
