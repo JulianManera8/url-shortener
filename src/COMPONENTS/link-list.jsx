@@ -25,7 +25,7 @@ export default function LinkList({url, fetchUrls}) {
                 }>
                     <Copy />
                 </Button>
-                <Button variant="ghost" onClick={() => fnDeleteUrl().then(() => fetchUrls())} disable={loadingDelete}>
+                <Button variant="ghost" onClick={() => fnDeleteUrl(url.id).then(() => fetchUrls())}>
                     {loadingDelete ? <BeatLoader size={5} color="white" /> : <Trash />}
                 </Button>
             </div>

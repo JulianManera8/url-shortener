@@ -36,6 +36,7 @@ export default function Dashboard() {
     if (urls?.length) fnClicks();
   }, [urls?.length]);
 
+
   return (
     <div className="flex flex-col gap-8 mt-5">
       {(loading || loadingClicks) && (<BarLoader width={"100%"} color="#36d7b7" />)}
@@ -78,7 +79,7 @@ export default function Dashboard() {
 
       {error && <Error errorMessage={error?.message} />}
 
-      {urls?.length > 1 ? (filterUrls || []).map((url, i) => (
+      {urls?.length > 0 ? (filterUrls || []).map((url, i) => (
         <LinkList key={i} url={url} fetchUrls={fnUrls} />
       )) : (<span className="text-xl m-auto text-center"> You have not created any link yet, try one!</span>)}
 
