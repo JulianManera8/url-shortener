@@ -17,6 +17,7 @@ export async function loginGoogle() {
   })
 
   if (error) throw new Error(error.message);
+  
   return data
 }
 
