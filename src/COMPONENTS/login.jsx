@@ -37,7 +37,7 @@ export default function Login() {
 
     const { data, error, loading, fn: fnLogin } = useFetch(login, userData);
 
-    const { data: logedGoogle, error: errorGoogle, loading: loadingGoogle, fn: fnLoginGoogle } = useFetch(loginGoogle);
+    const { fn: fnLoginGoogle } = useFetch(loginGoogle);
 
     const { fetchUser } = UrlState()
 

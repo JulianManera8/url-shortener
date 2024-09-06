@@ -22,20 +22,34 @@ export default function Header() {
   }, [user])
 
   const AvatarFB = () => {
-    let fullname = user?.user_metadata?.fullname.split(' ')
-    let formated = ''
+
+    // console.log(user.user_metadata.picture)
+
+    const fullname = 
+      user.app_metadata.provider === 'google' ? 
+      user?.user_metadata.full_name :
+      user?.user_metadata.fullname;
+
+    if(fullname) {
+      const formated = fullname
+        .split(' ')
+        .map( word => word.charAt(0).toUpperCase())
+        .join('');
+
+      return formated
+    }
+
     
+  } 
+  
+  const avatarPicture = () => {
+    const picture = 
+    user.app_metadata.provider === 'google' ?
+    user?.user_metadata.picture :
+    user?.user_metadata?.profile_pic
 
-    if (fullname.length > 1) {
-      formated = fullname.map( word => {
-        return word.charAt(0).toUpperCase();
-      })
-      return formated.join('')
-    } 
+    return picture ? picture : ''
 
-    formated = fullname[0].charAt(0).toUpperCase()
-
-    return formated
   }
 
 
@@ -56,7 +70,7 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar className="w-[70px] h-[70px] md:w-16 md:h-16 -mr-2 -md:mr-2">
-                  <AvatarImage src={ user?.user_metadata?.profile_pic ? user?.user_metadata?.profile_pic : AvatarFB() } className="object-fill" />
+                  <AvatarImage src={ avatarPicture() ? avatarPicture() : AvatarFB() } className="object-fill" />
                   <AvatarFallback className="text-xl font-serif">{AvatarFB()}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
