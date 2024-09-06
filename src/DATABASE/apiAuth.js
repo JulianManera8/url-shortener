@@ -11,26 +11,29 @@ export async function login({ email, password }) {
   return data;
 }
 
-// export async function loginGoogle() {
-//   const { data, error } = supabase.auth.signInWithOAuth({
-//     provider: 'google',
-//   })
-
-//   if (error) throw new Error(error.message);
-
-//   return data
-// }
-
 export async function loginGoogle() {
-  const { data, error } = await supabase.auth.signInWithOAuth({
+  const { data, error } = supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: 'https://urlink-short.vercel.app/',
-    } })
-  if (error) console.error('Error: ', error.message)
+      redirectTo: `${window.location.origin}/auth/callback`, // Asegúrate de que esta URL esté configurada en Google Cloud Console
+    },
+  })
 
-  console.log(data)
+  if (error) throw new Error(error.message);
+
+  return data
 }
+
+// export async function loginGoogle() {
+//   const { data, error } = await supabase.auth.signInWithOAuth({
+//     provider: 'google',
+//     options: {
+//       redirectTo: `${process.env.VITE_PUBLIC_BASE_URL}/auth/callback`,
+//     } })
+//   if (error) console.error('Error: ', error.message)
+
+//   console.log(data)
+// }
 
 export async function signup({ fullname, email, password, profile_pic }) {
   const fileName = `dp-${fullname.split(" ").join("-")}-${Math.random()}`;
