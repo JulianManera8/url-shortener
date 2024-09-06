@@ -47,22 +47,22 @@ export default function LandingPage() {
         <Accordion type="multiple" className=" w-full text-2xl text-left">
 
           <AccordionItem value="item-1">
-            <AccordionTrigger className="">Is it accessible?</AccordionTrigger>
-            <AccordionContent className="text-xl">
+            <AccordionTrigger className="text-sm md:text-xl">Is it accessible?</AccordionTrigger>
+            <AccordionContent className="text-sm md:text-xl">
               Yes. It adheres to the WAI-ARIA design pattern.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="item-2">
-            <AccordionTrigger>Do i need to create an account to use the app?</AccordionTrigger>
-            <AccordionContent className="text-xl">
+            <AccordionTrigger className="text-sm md:text-xl">Do i need to create an account to use the app?</AccordionTrigger>
+            <AccordionContent className="text-sm md:text-xl">
             Yes, Creating an account allows you to manage your URLs, view analytics, and customize your short URLs.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="item-3">
-            <AccordionTrigger>What analytics are available?</AccordionTrigger>
-            <AccordionContent className="text-xl">
+            <AccordionTrigger className="text-sm md:text-xl">What analytics are available?</AccordionTrigger>
+            <AccordionContent className="text-sm md:text-xl">
               You can view the number of clicks, geolocation data of the clicks and device types (mobile or desktop) for each of your shortened URLs.
             </AccordionContent>
           </AccordionItem>

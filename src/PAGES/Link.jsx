@@ -53,14 +53,14 @@ export default function SingleLink() {
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-7 md:mt-2">
       {(loading || loadingStats) && (
-        <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />
+        <BarLoader width={"100%"} color="#36d7b7" />
       )}
-      <div className="flex flex-col gap-8 sm:flex-row justify-between mt-16">
+      <div className="flex flex-col gap-8 md:flex-row w-fulljustify-between md:mt-10">
 
         {/* DATA OF THE LINK */}
-        <div className="flex flex-col items-start gap-8 rounded-lg sm:w-2/5 pl-6 pt-6">
+        <div className="flex flex-col items-start gap-8 rounded-lg  pl-6 pt-6">
           <span className="text-4xl font-extrabold hover:underline cursor-pointer">
             Title: {url?.title}
           </span>

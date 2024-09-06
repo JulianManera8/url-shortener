@@ -80,11 +80,8 @@ export default function Dashboard() {
 
       {urls?.length > 1 ? (filterUrls || []).map((url, i) => (
         <LinkList key={i} url={url} fetchUrls={fnUrls} />
-      )) : (<span className="text-xl m-auto"> You have not created any link yet, try one!</span>)}
+      )) : (<span className="text-xl m-auto text-center"> You have not created any link yet, try one!</span>)}
 
-      {/* {(filterUrls || []).map((url, i) => (
-        <LinkList key={i} url={url} fetchUrls={fnUrls} />
-      ))} */}
     </div>
   );
 }

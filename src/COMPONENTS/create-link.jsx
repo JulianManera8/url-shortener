@@ -83,9 +83,9 @@ export default function CreateLink() {
         Create new Link
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className=" rounded-2xl mx-auto sm:max-w-md max-w-xs bg-slate-700">
         <DialogHeader className="flex flex-col gap-5">
-          <DialogTitle className="font-bold text-3xl mb-3 flex-1 flex justify-center">
+          <DialogTitle className="font-bold text-3xl flex-1 flex justify-center">
             Create a new Link
           </DialogTitle>
 
@@ -108,7 +108,7 @@ export default function CreateLink() {
           {errors.longUrl && <Error errorMessage={errors.longUrl} />}
 
           <div className="flex items-center gap-2">
-            <Card className="p-2"> urlink-short.vercel.app/ </Card>/
+            <Card className="p-2 md:text-lg text-xs"> urlink-short.vercel.app/ </Card>/
             <Input
               id="customUrl"
               placeholder="Custom Link (optional)"

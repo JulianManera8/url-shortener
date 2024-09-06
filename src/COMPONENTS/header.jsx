@@ -55,7 +55,7 @@ export default function Header() {
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <Avatar className="w-16 h-16">
+                <Avatar className="w-[70px] h-[70px] md:w-16 md:h-16 -mr-2 -md:mr-2">
                   <AvatarImage src={ user?.user_metadata?.profile_pic ? user?.user_metadata?.profile_pic : AvatarFB() } className="object-fill" />
                   <AvatarFallback>{AvatarFB()}</AvatarFallback>
                 </Avatar>
@@ -63,23 +63,23 @@ export default function Header() {
 
               <DropdownMenuContent>
                 <DropdownMenuLabel>
-                  <span className="capitalize text-xl"> {user?.user_metadata?.fullname} </span>
+                  <span className="capitalize text-lg md:text-xl"> {user?.user_metadata?.fullname} </span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link to="/" className="flex text-xl">
-                    <House className="mr-2" />
+                  <Link to="/" className="flex text-md md:text-xl items-center">
+                    <House className="mr-3" />
                     Home
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/dashboard" className="flex text-xl">
-                    <LinkIcon className="mr-2" />
+                  <Link to="/dashboard" className="flex text-md md:text-xl items-center">
+                    <LinkIcon className="mr-3" />
                     My Links
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-red-500 text-xl">
-                  <LogOut className="mr-2" />
+                <DropdownMenuItem className="text-red-500 text-md md:text-xl items-center">
+                  <LogOut className="mr-3" />
                   <span onClick={() => {
                     fnLogout().then(() => {navigate('/')})
                   }}> 
