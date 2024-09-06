@@ -79,7 +79,7 @@ export default function Login() {
                 <CardHeader>
                     <CardTitle>Login</CardTitle>
                     <CardDescription>
-                        <span>to your account if you already have one.</span>
+                        <span>to your account if you already have one.</span><br/>
                         {error && <Error errorMessage={error.message} />}
                     </CardDescription>
                 </CardHeader>
@@ -92,7 +92,7 @@ export default function Login() {
 
                     <div className="relative">
                         <Input onChange={handleInputChange} type={passEye ? 'password': 'text'} name="password" placeholder="Password" autoComplete='current-password'/>
-                        {passEye ? <Eye className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/>}
+                        {passEye ? <Eye className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/>}
                         
                         {errors.password && <Error errorMessage={errors.password} />}
                     </div>

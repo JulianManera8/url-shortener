@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/COMPONENTS/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/COMPONENTS/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/COMPONENTS/ui/avatar";
@@ -13,6 +13,7 @@ import { useEffect } from "react";
 export default function Header() {
   const {loading, fn: fnLogout } = useFetch(logout)
   const navigate = useNavigate();
+  const location = useLocation()
 
   const { user, fetchUser } = UrlState();
 
@@ -21,13 +22,23 @@ export default function Header() {
   }, [user])
 
   const AvatarFB = () => {
-    let firstLetter = user?.user_metadata?.fullname.split(' ')[0]
-    let secondLetter = user?.user_metadata?.fullname.split(' ')[1]
+    let fullname = user?.user_metadata?.fullname.split(' ')
+    let formated = ''
+    
 
-    let finalFB = firstLetter.charAt(0).toUpperCase() + secondLetter.charAt(0).toUpperCase()
+    if (fullname.length > 1) {
+      formated = fullname.map( word => {
+        return word.charAt(0).toUpperCase();
+      })
+      return formated.join('')
+    } 
 
-    return finalFB
+    formated = fullname[0].charAt(0).toUpperCase()
+
+    return formated
   }
+
+
 
 
   return (
@@ -39,20 +50,20 @@ export default function Header() {
 
         <div className=" px-3">
           {!user ? (
-            <Button onClick={() => navigate("/auth")}>Log in</Button>
+            location.pathname !== '/auth' ? <Button onClick={() => navigate("/auth")}>Log in</Button> 
+            : <Button onClick={() => navigate("/")} variant="secondary"> Back to home </Button>
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar className="w-16 h-16">
-                  <AvatarImage src={user?.user_metadata?.profile_pic} className="object-fit" />
+                  <AvatarImage src={ user?.user_metadata?.profile_pic ? user?.user_metadata?.profile_pic : AvatarFB() } className="object-fill" />
                   <AvatarFallback>{AvatarFB()}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent>
                 <DropdownMenuLabel>
-                  <span className="capitalize text-xl"> {user?.user_metadata?.fullname.split(" ")[0]} </span>
-                  <span className="capitalize text-xl"> {user?.user_metadata?.fullname.split(" ")[1]} </span>
+                  <span className="capitalize text-xl"> {user?.user_metadata?.fullname} </span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>

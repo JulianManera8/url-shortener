@@ -22,14 +22,14 @@ export default function Auth() {
   
 
   return (
-    <div className="mt-8 flex flex-col items-center gap-10">
-
+    <div className="mt-8 flex flex-col items-center gap-10 px-4  max-w-[500px] mx-auto">
+  
       {searchParams.get("createNew") 
-      ? ( <h1 className="text-3xl font-extrabold"> Hold up, you have to login first!</h1> ) 
-      : ( <h1 className="text-5xl font-extrabold"> Login / Sign Up </h1> )
+        ? ( <h1 className="text-3xl font-extrabold text-center">Hold up, you have to login first!</h1> ) 
+        : ( <h1 className="text-4xl sm:text-5xl font-extrabold text-center">Login / Sign Up</h1> )
       }
-
-      <Tabs defaultValue="account" className="w-[400px]">
+  
+      <Tabs defaultValue="account" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="account">Login</TabsTrigger>
           <TabsTrigger value="signip">Sign Up</TabsTrigger>
@@ -41,7 +41,8 @@ export default function Auth() {
           <Signup />
         </TabsContent>
       </Tabs>
-
+  
     </div>
   );
+  
 }

@@ -124,8 +124,9 @@ export default function Signup() {
               placeholder="Password"
               className=""
               onChange={handleChangeInput}
+              autoComplete='off'
             />
-            {passEye ? <Eye className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/>}
+            {passEye ? <Eye className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/>}
 
             {errors.password && <Error errorMessage={errors.password} />}
           </div>
@@ -137,8 +138,9 @@ export default function Signup() {
               placeholder="Confirm password"
               className=""
               onChange={handleChangeInput}
+              autoComplete='off'
             />
-            {passEye ? <Eye className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute top-2 right-3 text-gray-400" onClick={() => setPassEye(!passEye)}/>}
+            {passEye ? <Eye className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/>}
 
             {errors.confirmPassword && (
               <Error errorMessage={errors.confirmPassword} />
@@ -146,14 +148,13 @@ export default function Signup() {
           </div>
 
           <div>
-            <label htmlFor="profile_pic" className="text-gray-400">Select a profile picture</label>
+            <label htmlFor="profile_pic" className="text-gray-300 text-sm">Select a profile picture <span className="text-gray-600"> (optional)</span> </label>
             <Input
               name="profile_pic"
               type="file"
               accept='image/*'
-              className="flex justify mt-3"
+              className="flex justify mt-1 text-transparent bg-slate-600"
               onChange={handleChangeInput}
-              placeholder="Select a profile picture"
             />
             {errors.profile_pic && (
               <Error errorMessage={errors.profile_pic} />
