@@ -6,10 +6,12 @@ import * as Yup from 'yup';
 import { useEffect, useState } from "react";
 import Error from './error';
 import useFetch from "@/HOOKS/use-fetch";
-import { login } from "@/DATABASE/apiAuth";
+import { login, loginGoogle } from "@/DATABASE/apiAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { UrlState } from "@/context";
 import { Eye, EyeOff } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
+
 
 export default function Login() {
     const [userData, setUserData] = useState({
@@ -34,6 +36,8 @@ export default function Login() {
     };
 
     const { data, error, loading, fn: fnLogin } = useFetch(login, userData);
+
+    const { data: logedGoogle, error: errorGoogle, loading: loadingGoogle, fn: fnLoginGoogle } = useFetch(loginGoogle);
 
     const { fetchUser } = UrlState()
 
@@ -73,8 +77,34 @@ export default function Login() {
         }
     };
 
+    const handleLoginGoogle = async (e) => {
+        e.preventDefault();
+
+        setErrors({});
+
+        try {
+            
+            await fnLoginGoogle();
+
+            if (error) throw error;
+
+        } catch (e) {
+            const newErrors = {};
+    
+            if (e.inner) {
+                e.inner.forEach((err) => {
+                    newErrors[err.path] = err.message;
+                });
+            } else {
+                newErrors.general = e.message || "Error al iniciar sesión con Google";
+            }
+    
+            setErrors(newErrors);
+        }
+    }
+
     return (
-        <form onSubmit={handleLogin}>
+        <form>
             <Card>
                 <CardHeader>
                     <CardTitle>Login</CardTitle>
@@ -95,13 +125,20 @@ export default function Login() {
                         {passEye ? <Eye className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/>}
                         
                         {errors.password && <Error errorMessage={errors.password} />}
+
                     </div>
                 </CardContent>
 
-                <CardFooter className="flex justify-center">
-                    <Button type="submit">
+                <CardFooter className="flex justify-center gap-5 sm:flex-row flex-col">
+
+                    <Button onClick={handleLogin}>
                         {loading ? <BeatLoader size={10} color="teal" /> : "Login"}
                     </Button>
+
+                    <Button onClick={handleLoginGoogle} className="bg-blue-200">
+                        <FcGoogle className="mr-2 h-4 w-4" /> Login with Email
+                    </Button>
+
                 </CardFooter>
             </Card>
         </form>

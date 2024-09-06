@@ -57,7 +57,7 @@ export default function Header() {
               <DropdownMenuTrigger>
                 <Avatar className="w-[70px] h-[70px] md:w-16 md:h-16 -mr-2 -md:mr-2">
                   <AvatarImage src={ user?.user_metadata?.profile_pic ? user?.user_metadata?.profile_pic : AvatarFB() } className="object-fill" />
-                  <AvatarFallback>{AvatarFB()}</AvatarFallback>
+                  <AvatarFallback className="text-xl font-serif">{AvatarFB()}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
 

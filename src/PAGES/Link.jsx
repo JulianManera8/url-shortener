@@ -47,11 +47,6 @@ export default function SingleLink() {
     navigate("/dashboard");
   }
 
-  let link = "";
-  if (url) {
-    link = url?.custom_url ? url?.custom_url : url.short_url;
-  }
-
   return (
     <div className="mt-7 md:mt-2">
       {(loading || loadingStats) && (
@@ -61,33 +56,48 @@ export default function SingleLink() {
 
         {/* DATA OF THE LINK */}
         <div className="flex flex-col items-start gap-8 rounded-lg  pl-6 pt-6">
-          <span className="text-4xl font-extrabold hover:underline cursor-pointer">
-            Title: {url?.title}
+
+          <span className="text-4xl font-extrabold cursor-pointer">
+            <span className="text-blue-300"> Title: </span> {url?.title}
           </span>
 
           <a
-            href={`https://urlink-short.vercel.app/${link}`}
+            href={`https://urlink-short.vercel.app/${url?.short_url}`}
             target="_blank"
             className="cursor-pointer text-2xl sm:text-2xl"
           >
-            <b className=" flex flex-row items-center text-blue-300 font-bold hover:underline cursor-pointer">
-              <LinkIcon className="p-1 size-5" /> Custom or Short URL:{" "}
+            <b className=" flex flex-row items-center text-blue-300 font-bold cursor-pointer">
+              <LinkIcon className="size-5 mr-2" /> Short URL:{" "}
             </b>{" "}
-            https://urlink-short.vercel.app/{ loading || loadingStats ? 'Loading....' : link}
+            <span className="hover:underline cursor-pointer">    https://urlink-short.vercel.app/{ loading || loadingStats ? 'Loading....' : url?.short_url} </span>
           </a>
+
+          {url?.custom_url ? 
+            <a
+            href={`https://urlink-short.vercel.app/${url?.custom_url}`}
+            target="_blank"
+            className="cursor-pointer text-2xl sm:text-2xl"
+            >
+            <b className=" flex flex-row items-center text-blue-300 font-bold">
+              <LinkIcon className="size-5 mr-2" /> Custom URL:{" "}
+            </b>{" "}
+            <span  className="hover:underline cursor-pointer"> https://urlink-short.vercel.app/{ loading || loadingStats ? 'Loading....' : url.custom_url} </span> 
+            </a> 
+          : ''  
+          }
 
           <a
             href={url?.original_url}
             target="_blank"
             className="cursor-pointer text-xl sm:text-1xl"
           >
-            <b className=" flex flex-row items-center text-xl sm:text-1xl text-blue-300 font-bold hover:underline cursor-pointer">
-              <LinkIcon className="p-1 size-5" /> Original URL:
+            <b className=" flex flex-row items-center text-xl sm:text-1xl text-blue-300 font-bold">
+              <LinkIcon className="size-5 mr-2" /> Original URL:
             </b>{" "}
-            { loading || loadingStats ? 'Loading....' : url?.original_url}
+            <span  className="hover:underline cursor-pointer">  { loading || loadingStats ? 'Loading....' : url?.original_url} </span>
           </a>
 
-          <span className="text-lg"> Created: { loading || loadingStats ? 'Loading....' : new Date(url?.created_at).toLocaleString()} </span>
+          <span className="text-lg"> <span className="text-blue-300">  Created:</span> { loading || loadingStats ? 'Loading....' : new Date(url?.created_at).toLocaleString()} </span>
 
           <div className="flex gap-2">
             <Button

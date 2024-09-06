@@ -11,6 +11,16 @@ export async function login({ email, password }) {
   return data;
 }
 
+export async function loginGoogle() {
+  const { data, error } = supabase.auth.signInWithOAuth({
+    provider: 'google',
+  })
+
+  if (error) throw new Error(error.message);
+  return data
+}
+
+
 export async function signup({ fullname, email, password, profile_pic }) {
   const fileName = `dp-${fullname.split(" ").join("-")}-${Math.random()}`;
 
