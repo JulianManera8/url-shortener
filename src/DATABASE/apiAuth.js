@@ -14,9 +14,9 @@ export async function login({ email, password }) {
 export async function loginGoogle() {
   const { data, error } = supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: {
-      redirectTo: `${window.location.origin}/auth/callback`, // Asegúrate de que esta URL esté configurada en Google Cloud Console
-    },
+    // options: {
+    //   redirectTo: `${window.location.origin}/auth/callback`, // Asegúrate de que esta URL esté configurada en Google Cloud Console
+    // },
   })
 
   if (error) throw new Error(error.message);
