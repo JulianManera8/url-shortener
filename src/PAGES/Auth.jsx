@@ -22,7 +22,7 @@ export default function Auth() {
   
 
   return (
-    <div className="mt-8 flex flex-col  items-center gap-10 px-4  max-w-[500px] mx-auto">
+    <div className="mt-8 flex flex-col  items-center gap-10 px-4  max-w-[400px] mx-auto">
   
       {searchParams.get("createNew") 
         ? ( <h1 className="text-3xl font-extrabold text-center">Hold up, you have to login first!</h1> ) 

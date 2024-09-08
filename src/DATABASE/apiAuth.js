@@ -55,7 +55,10 @@ export async function signup({ fullname, email, password, profile_pic }) {
     },
   });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("Error from Supabase:", error);  // Añadir este console.log para verificar
+    throw new Error(error.message);  // Esto asegurará que el error se propague
+  }
 
   return data;
 }
