@@ -6,12 +6,13 @@ import * as Yup from 'yup';
 import { useEffect, useState } from "react";
 import Error from './error';
 import useFetch from "@/HOOKS/use-fetch";
-import { login } from "@/DATABASE/apiAuth";
+import { login, loginGithub } from "@/DATABASE/apiAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { UrlState } from "@/context";
 import { Eye, EyeOff } from "lucide-react";
 // import { loginGoogle } from "@/DATABASE/apiAuth";
 // import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 
 export default function Login() {
@@ -39,12 +40,12 @@ export default function Login() {
     const { data, error, loading, fn: fnLogin } = useFetch(login, userData);
 
     // const { data: dataGoogle, error: errorGoogle, fn: fnLoginGoogle } = useFetch(loginGoogle);
+    const { data: dataGithub, error: errorGithub, fn: fnLoginGithub } = useFetch(loginGithub);
 
     const { fetchUser } = UrlState()
 
     useEffect(() => {
         if (error === null && data) {
-          console.log(data)
           navigate(`/?${longLink ? 'createNew=${longLink}' : ''}`);
           fetchUser();
         }
@@ -79,6 +80,31 @@ export default function Login() {
             setErrors(newErrors);
         }
     };
+
+    const handleLoginGithub = async (e) => {
+        e.preventDefault();
+        setErrors({});
+
+        try {
+            await fnLoginGithub();
+
+            if (error) throw error;
+
+
+        } catch (e) {
+            const newErrors = {};
+    
+            if (e.inner) {
+                e.inner.forEach((err) => {
+                    newErrors[err.path] = err.message;
+                });
+            } else {
+                newErrors.general = e.message || "Error al iniciar sesión con Github";
+            }
+    
+            setErrors(newErrors);
+        }
+    }
 
     // const handleLoginGoogle = async (e) => {
     //     e.preventDefault();
@@ -144,6 +170,9 @@ export default function Login() {
                     {/* <Button onClick={handleLoginGoogle} className="bg-blue-200">
                         <FcGoogle className="mr-2 h-4 w-4" /> Login with Email
                     </Button> */}
+                    <Button onClick={handleLoginGithub} className="bg-blue-200">
+                        <FaGithub className="mr-2 h-4 w-4" /> Login with Github
+                    </Button>
 
                 </CardFooter>
             </Card>

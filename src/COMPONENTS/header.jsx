@@ -54,11 +54,6 @@ export default function Header() {
 
   }
 
-  const parser = new UAParser();
-  console.log(parser.getDevice())
-  
-
-
   return (
     <>
       <nav className="flex justify-between items-center mt-3">

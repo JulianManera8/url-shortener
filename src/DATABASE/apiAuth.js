@@ -11,6 +11,19 @@ export async function login({ email, password }) {
   return data;
 }
 
+export async function loginGithub() {
+  const { data, error } = supabase.auth.signInWithOAuth({
+    provider: 'github',
+    // options: {
+    //   redirectTo: `${window.location.origin}/auth/callback`, // Asegúrate de que esta URL esté configurada en Google Cloud Console
+    // },
+  })
+
+  if (error) throw new Error(error.message);
+
+  return data
+}
+
 // export async function loginGoogle() {
 //   const { data, error } = supabase.auth.signInWithOAuth({
 //     provider: 'google',
