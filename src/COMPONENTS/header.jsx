@@ -1,3 +1,5 @@
+import {UAParser} from "ua-parser-js";
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/COMPONENTS/ui/button";
@@ -52,7 +54,9 @@ export default function Header() {
 
   }
 
-
+  const parser = new UAParser();
+  console.log(parser.getDevice())
+  
 
 
   return (
