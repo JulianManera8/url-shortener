@@ -14,9 +14,6 @@ export async function login({ email, password }) {
 export async function loginGithub() {
   const { data, error } = supabase.auth.signInWithOAuth({
     provider: 'github',
-    // options: {
-    //   redirectTo: `${window.location.origin}/auth/callback`, // Asegúrate de que esta URL esté configurada en Google Cloud Console
-    // },
   })
 
   if (error) throw new Error(error.message);
@@ -24,29 +21,15 @@ export async function loginGithub() {
   return data
 }
 
-// export async function loginGoogle() {
-//   const { data, error } = supabase.auth.signInWithOAuth({
-//     provider: 'google',
-//     // options: {
-//     //   redirectTo: `${window.location.origin}/auth/callback`, // Asegúrate de que esta URL esté configurada en Google Cloud Console
-//     // },
-//   })
+export async function loginGoogle() {
+  const { data, error } = supabase.auth.signInWithOAuth({
+    provider: 'google',
+  })
 
-//   if (error) throw new Error(error.message);
+  if (error) throw new Error(error.message);
 
-//   return data
-// }
-
-// export async function loginGoogle() {
-//   const { data, error } = await supabase.auth.signInWithOAuth({
-//     provider: 'google',
-//     options: {
-//       redirectTo: `${process.env.VITE_PUBLIC_BASE_URL}/auth/callback`,
-//     } })
-//   if (error) console.error('Error: ', error.message)
-
-//   console.log(data)
-// }
+  return data
+}
 
 export async function signup({ fullname, email, password, profile_pic }) {
   const fileName = `dp-${fullname.split(" ").join("-")}-${Math.random()}`;

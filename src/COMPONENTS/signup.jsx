@@ -5,11 +5,13 @@ import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
-import {signup} from '../DATABASE/apiAuth'
+import { signup, loginGithub, loginGoogle } from "@/DATABASE/apiAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useFetch from "@/HOOKS/use-fetch";
 import { UrlState } from "@/context";
 import { Eye, EyeOff } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Signup() {
   const [userData, setUserData] = useState({
@@ -38,6 +40,8 @@ export default function Signup() {
   };
 
   const { data, error, loading, fn: fnSignup } = useFetch(signup, userData);
+  const { fn: fnLoginGoogle } = useFetch(loginGoogle);
+  const { fn: fnLoginGithub } = useFetch(loginGithub);
 
   const { fetchUser } = UrlState()
 
@@ -82,6 +86,55 @@ export default function Signup() {
       setErrors(newErrors);
     }
   };
+
+  const handleLoginGithub = async (e) => {
+    e.preventDefault();
+    setErrors({});
+
+    try {
+        await fnLoginGithub();
+
+        if (error) throw error;
+
+    } catch (e) {
+        const newErrors = {};
+
+        if (e.inner) {
+            e.inner.forEach((err) => {
+                newErrors[err.path] = err.message;
+            });
+        } else {
+            newErrors.general = e.message || "Error al iniciar sesión con Github";
+        }
+
+        setErrors(newErrors);
+    }
+}
+
+  const handleLoginGoogle = async (e) => {
+    e.preventDefault();
+
+    setErrors({});
+
+    try {
+        await fnLoginGoogle();
+
+        if (error) throw error;
+
+    } catch (e) {
+        const newErrors = {};
+
+        if (e.inner) {
+            e.inner.forEach((err) => {
+                newErrors[err.path] = err.message;
+            });
+        } else {
+            newErrors.general = e.message || "Error al iniciar sesión con Google";
+        }
+
+        setErrors(newErrors);
+    }
+  }
 
   return (
     <form onSubmit={handleSignup}>
@@ -153,7 +206,7 @@ export default function Signup() {
               name="profile_pic"
               type="file"
               accept='image/*'
-              className="flex justify mt-1 text-transparent bg-slate-600"
+              className="flex justify mt-1 text-white bg-slate-600"
               onChange={handleChangeInput}
             />
             {errors.profile_pic && (
@@ -162,10 +215,23 @@ export default function Signup() {
           </div>
         </CardContent>
 
-        <CardFooter className="flex justify-center">
-          <Button type="submit">
+        <CardFooter className="flex justify-center gap-5 flex-col">
+        <Button type="submit">
             {loading ? <BeatLoader size={10} color="teal" /> : "Create account"}
           </Button>
+
+          <span className="mt-3"> Or if you prefer, you can also signup with:</span>
+
+          <div className="space-x-7">
+            <Button onClick={handleLoginGoogle}>
+              <FcGoogle className="mr-2 h-4 w-4" /> Google
+            </Button>
+
+            <Button onClick={handleLoginGithub}>
+              <FaGithub className="mr-2 h-4 w-4" /> Github
+            </Button>
+          </div>
+
         </CardFooter>
       </Card>
     </form>
