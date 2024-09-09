@@ -142,7 +142,7 @@ export default function CreateLink() {
             />
           </div>
           
-          {errors.general && <Error errorMessage={errors.general} />}
+          {/* {errors.general && <Error errorMessage={errors.general} />} */}
         </DialogHeader>
 
         <DialogFooter className="sm:justify-center mt-4 ">

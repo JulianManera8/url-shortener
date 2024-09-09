@@ -23,8 +23,6 @@ export default function Header() {
 
   const AvatarFB = () => {
 
-    console.log(user)
-
     const fullname = 
       user.app_metadata.provider === 'google' ? 
       user?.user_metadata.full_name :
@@ -50,7 +48,7 @@ export default function Header() {
     user?.user_metadata.picture :
     user.app_metadata.provider === 'github' ?
     user?.user_metadata?.avatar_url :
-    ''
+    user?.user_metadata?.profile_pic
 
     return picture ? picture : ''
 
