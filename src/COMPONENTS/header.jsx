@@ -26,8 +26,10 @@ export default function Header() {
     console.log(user)
 
     const fullname = 
-      user.app_metadata.provider === 'google' || user.app_metadata.provider === 'github' ? 
+      user.app_metadata.provider === 'google' ? 
       user?.user_metadata.full_name :
+      user.app_metadata.provider === 'github' ?
+      user?.user_metadata.user_name :
       user?.user_metadata.fullname
 
     if(fullname) {
@@ -44,9 +46,11 @@ export default function Header() {
   
   const avatarPicture = () => {
     const picture = 
-    user.app_metadata.provider === 'google' || user.app_metadata.provider === 'github' ?
+    user.app_metadata.provider === 'google' ?
     user?.user_metadata.picture :
-    user?.user_metadata?.profile_pic
+    user.app_metadata.provider === 'github' ?
+    user?.user_metadata?.avatar_url :
+    ''
 
     return picture ? picture : ''
 
@@ -74,7 +78,13 @@ export default function Header() {
 
               <DropdownMenuContent>
                 <DropdownMenuLabel>
-                  <span className="capitalize text-lg md:text-xl"> {user?.user_metadata?.fullname} </span>
+                  <span className="capitalize text-lg md:text-xl"> {
+                    user.app_metadata.provider === 'google' ? 
+                    user?.user_metadata.full_name :
+                    user.app_metadata.provider === 'github' ?
+                    user?.user_metadata.user_name :
+                    user?.user_metadata.fullname  
+                  } </span>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
