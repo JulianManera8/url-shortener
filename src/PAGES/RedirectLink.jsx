@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useFetch from '../HOOKS/use-fetch';
 import { getLongUrl } from '../DATABASE/apiUrls';
 import { storeClicks } from '../DATABASE/apiClicks';
@@ -16,6 +16,8 @@ export default function RedirectLink() {
     originalUrl: data?.original_url,
   });
 
+  const navigate = useNavigate()
+
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
@@ -25,14 +27,15 @@ export default function RedirectLink() {
   useEffect(() => {
     if (!loading && data) {
       fnStats(); // Store clicks when the URL is successfully fetched
-      setTimeout(() => {
-        if (data?.original_url) {
-          window.location.href = data.original_url; // Redirect to the original URL
-        } else {
-          setShowError(true); // Show error if there's no valid URL
-        }
-      }, 3000); // Delay the redirection by 3 seconds
+      if (data?.original_url) {
+        return window.location.href = data.original_url; // Redirect to the original URL
+      }
     }
+
+    setTimeout(() => {
+      setShowError(true); // Show error if there's no valid URL
+    }, 5000); // Delay the redirection by 3 seconds
+
   }, [loading, data]);
 
   if (loading || loadingStats) {
@@ -42,17 +45,21 @@ export default function RedirectLink() {
         <br />
       </>
     );
-  }
+  } 
 
-  return (
-    <>
-      {showError ? (
-        <div className="flex flex-col items-center justify-center p-6">
-          <LinkError />
-        </div>
-      ) : (
-        <LoadingCard msg={"We are redirecting you, please wait."} />
-      )}
-    </>
-  );
+    return (
+      <>
+        {showError ? (
+          <div className="flex flex-col items-center justify-center p-6">
+            <span  onClick={() => navigate('/')}>
+              <LinkError/>
+            </span>
+          </div>
+        ) : (
+          <LoadingCard msg={"We are redirecting you, please wait."} />
+        )}
+      </>
+    );
+  
+
 }

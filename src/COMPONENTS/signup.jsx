@@ -193,47 +193,4 @@ export default function Signup() {
               onChange={handleChangeInput}
               autoComplete='off'
             />
-            {passEye ? <Eye className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/> : <EyeOff className="absolute inset-y-0 my-auto right-3 text-gray-400 cursor-pointer" onClick={() => setPassEye(!passEye)}/>}
-
-            {errors.confirmPassword && (
-              <Error errorMessage={errors.confirmPassword} />
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="profile_pic" className="text-gray-300 text-sm">Select a profile picture <span className="text-gray-600"> (optional)</span> </label>
-            <Input
-              name="profile_pic"
-              type="file"
-              accept='image/*'
-              className="flex justify mt-1 text-white bg-slate-600"
-              onChange={handleChangeInput}
-            />
-            {errors.profile_pic && (
-              <Error errorMessage={errors.profile_pic} />
-            )}
-          </div>
-        </CardContent>
-
-        <CardFooter className="flex justify-center gap-5 flex-col">
-        <Button type="submit">
-            {loading ? <BeatLoader size={10} color="teal" /> : "Create account"}
-          </Button>
-
-          <span className="mt-3"> Or if you prefer, you can also signup with:</span>
-
-          <div className="space-x-7">
-            <Button onClick={handleLoginGoogle}>
-              <FcGoogle className="mr-2 h-4 w-4" /> Google
-            </Button>
-
-            <Button onClick={handleLoginGithub}>
-              <FaGithub className="mr-2 h-4 w-4" /> Github
-            </Button>
-          </div>
-
-        </CardFooter>
-      </Card>
-    </form>
-  );
-}
+       

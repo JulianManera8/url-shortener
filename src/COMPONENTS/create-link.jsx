@@ -21,6 +21,7 @@ export default function CreateLink() {
   const longLink = searchParams.get("createNew");
 
   const [errors, setErrors] = useState({});
+
   const [formData, setFormData] = useState({
     title: "",
     longUrl: longLink ? longLink : "",
@@ -31,9 +32,9 @@ export default function CreateLink() {
     title: Yup.string().required("You must provide a title"),
     longUrl: Yup
       .string()
-      .url("Must be a valid URL")
+      .url("Must be a valid URL: https://example.com")
       .required("Please provide a URL"),
-    customUrl: Yup.string(),
+    customUrl: Yup.string().required("Please provide a Custom URL"),
   });
 
   const handleChange = (e) => {
@@ -49,28 +50,51 @@ export default function CreateLink() {
   });
 
   useEffect(() => {
+
     if (error === null && data) {
       navigate(`/link/${data[0].id}`);
     }
+    
   }, [error, data]);
 
   const createNewLink = async () => {
-    
-    setErrors([]);
-
+    setErrors([]); 
+  
     try {
       await schema.validate(formData, { abortEarly: false });
-      
-      await fnCreateUrl();
+  
+      const { error, data } = await fnCreateUrl(); 
+  
+      if(data) {
+        navigate(`/link/${data[0].id}`);
+      }
 
-    } catch (e) {
-      const newErrors = {};
-      e?.inner?.forEach((err) => {
-        newErrors[err.path] = err.message;
-      });
-      setErrors(newErrors);
+      if (error) {
+        throw new Error(error.message);
+      }
+  
+      // Si no hay error, puedes manejar la respuesta positiva
+      console.log("Enlace creado exitosamente:", data);
+
+
+    } catch (error) {
+      // Si el error proviene de la validación de Yup
+      if (error?.inner) {
+        const newErrors = {};
+        error.inner.forEach((err) => {
+          newErrors[err.path] = err.message; // Asignamos los errores de validación a sus respectivos campos
+        });
+
+        return setErrors(newErrors); // Actualizamos el estado de errores
+      }
+
+      // Aquí manejamos errores que no sean de validación, como los de Supabase
+      setErrors({ general: 'This custom URL already exists, try another one' });
     }
   };
+  
+  
+  
 
   return (
     <Dialog
@@ -83,7 +107,7 @@ export default function CreateLink() {
         Create new Link
       </DialogTrigger>
 
-      <DialogContent className=" rounded-2xl mx-auto sm:max-w-md max-w-xs bg-slate-700">
+      <DialogContent className=" rounded-2xl mx-auto sm:max-w-md max-w-xs bg-slate-800">
         <DialogHeader className="flex flex-col gap-5">
           <DialogTitle className="font-bold text-3xl flex-1 flex justify-center">
             Create a new Link
@@ -117,7 +141,8 @@ export default function CreateLink() {
               className="text-lg h-13"
             />
           </div>
-          {error && <Error errorMessage={errors.message} />}
+          
+          {errors.general && <Error errorMessage={errors.general} />}
         </DialogHeader>
 
         <DialogFooter className="sm:justify-center mt-4 ">

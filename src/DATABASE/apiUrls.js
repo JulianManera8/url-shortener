@@ -66,10 +66,9 @@ export async function createUrl(
     .select();
 
   if (error) {
-    console.error(error);
     throw new Error("Error creating short URL");
   }
-
+  console.log('data');
   return data;
 }
 
