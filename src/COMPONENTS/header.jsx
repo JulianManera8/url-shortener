@@ -1,5 +1,3 @@
-import {UAParser} from "ua-parser-js";
-
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/COMPONENTS/ui/button";
@@ -25,12 +23,12 @@ export default function Header() {
 
   const AvatarFB = () => {
 
-    // console.log(user.user_metadata.picture)
+    console.log(user)
 
     const fullname = 
-      user.app_metadata.provider === 'google' ? 
+      user.app_metadata.provider === 'google' || user.app_metadata.provider === 'github' ? 
       user?.user_metadata.full_name :
-      user?.user_metadata.fullname;
+      user?.user_metadata.fullname
 
     if(fullname) {
       const formated = fullname
@@ -46,7 +44,7 @@ export default function Header() {
   
   const avatarPicture = () => {
     const picture = 
-    user.app_metadata.provider === 'google' ?
+    user.app_metadata.provider === 'google' || user.app_metadata.provider === 'github' ?
     user?.user_metadata.picture :
     user?.user_metadata?.profile_pic
 
