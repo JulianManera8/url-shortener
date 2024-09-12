@@ -135,7 +135,7 @@ export default function CreateLink() {
             <Card className="p-2 md:text-lg text-xs"> urlink-short.vercel.app/ </Card>/
             <Input
               id="customUrl"
-              placeholder="Custom Link (optional)"
+              placeholder="Custom Link"
               onChange={handleChange}
               value={formData.customUrl}
               className="text-lg h-13"
